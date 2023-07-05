@@ -1,8 +1,10 @@
-import { legacy_createStore, combineReducers } from "redux";
+import { legacy_createStore, combineReducers, applyMiddleware } from "redux";
 import { todos } from "./todos/reducers";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = {
   todos,
@@ -21,7 +23,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const configureStore = () =>
   legacy_createStore(
     persistedReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(applyMiddleware(thunk))
   );
 
 // Best practices when using Redux
