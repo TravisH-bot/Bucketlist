@@ -26,17 +26,13 @@ export const todos = (state = [], action) => {
 
   switch (type) {
     case CREATE_TODO: {
-      const { text } = payload;
-      const newTodo = {
-        text,
-        isCompleted: false,
-      };
-      return state.concat(newTodo);
+      const { todo } = payload;
+      return state.concat(todo);
     }
     case REMOVE_TODO: {
-      const { text } = payload;
+      const { todo: todoToRemove } = payload;
       // filter based on whose text property does not equal the text property that we got on the action payload
-      return state.filter((todo) => todo.text !== text);
+      return state.filter((todo) => todo.id !== todoToRemove.id);
     }
     case MARK_TODO_AS_COMPLETED: {
       const { text } = payload;
@@ -47,6 +43,12 @@ export const todos = (state = [], action) => {
         return todo;
       });
     }
+    case LOAD_TODOS_SUCCESS: {
+      const { todos } = payload;
+      return todos;
+    }
+    case LOAD_TODOS_IN_PROGRESS:
+    case LOAD_TODOS_FAILURE:
     default:
       return state;
   }

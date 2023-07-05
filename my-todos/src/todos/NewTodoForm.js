@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./NewTodoForm.css";
 import { connect } from "react-redux";
-import { createTodo } from "./actions";
+import { addTodoRequest } from "./thunks";
 
 // connect is a higher order component
 // higher order functions are called with two different sets of arguments
@@ -18,7 +18,7 @@ const NewTodoForm = ({ todos, onCreatePressed }) => {
   return (
     <div className="new-todo-form">
       <input
-        className="new-todo-imput"
+        className="new-todo-input"
         type="text"
         placeholder="Type your new todo here"
         value={inputValue}
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
 // job - take state object and return another object containing pieces of that object state that our component needs access to
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreatePressed: (text) => dispatch(createTodo(text)),
+  onCreatePressed: (text) => dispatch(addTodoRequest(text)),
 });
 // takes dispatch as an argument rather than state
 // dispatch - function that allows our components to trigger actions that our redux store will respond to
