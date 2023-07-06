@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./NewTodoForm.css";
 import { connect } from "react-redux";
+import { getTodos } from "./selectors";
 import { addTodoRequest } from "./thunks";
 
 // connect is a higher order component
@@ -43,7 +44,7 @@ const NewTodoForm = ({ todos, onCreatePressed }) => {
 };
 
 const mapStateToProps = (state) => ({
-  todos: state.todos,
+  todos: getTodos(state),
 });
 // the state argument being passed in an object that represents the entire redux state
 // job - take state object and return another object containing pieces of that object state that our component needs access to
